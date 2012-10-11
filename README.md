@@ -1,6 +1,6 @@
 # Sekhon Fisher Test
 
-A principaled contingency table test.
+A principled contingency table test.
 
 ## Background
 
@@ -10,7 +10,7 @@ Jasjeet Sekhon proposed a Bayesian alternative to Fisher's exact test which avoi
 
 ## Building
 
-If you have python installed, you should be able to download this source and use `python setup.py install` to install the module wihtin your python environment. This will give you a command line interface (`sekhon.py -h` for usage) and a module for importing in python code.
+If you have python installed, you should be able to download this source and use `python setup.py install` to install the module within your python environment. This will give you a command line interface (`sekhon.py -h` for usage) and a module for importing in python code.
 
 ## Module
 
