@@ -1,0 +1,31 @@
+
+[csmall@rhino3] - [~/share/sekhon] - [10074]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.0                                                                                                       [16:11:08]
+Ran 10000 simulations in 0.0825319290161 seconds
+Result is: 1.0
+
+[csmall@rhino3] - [~/share/sekhon] - [10074]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.01                                                                                                      [16:11:09]
+Ran 10000 simulations in 0.0825479030609 seconds
+Result is: 0.9993
+
+[csmall@rhino3] - [~/share/sekhon] - [10076]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.03                                                                                                      [16:11:31]
+Ran 10000 simulations in 0.0826420783997 seconds
+Result is: 0.9673
+
+[csmall@rhino3] - [~/share/sekhon] - [10078]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.035                                                                                                     [16:11:38]
+Ran 10000 simulations in 0.0824460983276 seconds
+Result is: 0.9316
+
+[csmall@rhino3] - [~/share/sekhon] - [10077]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.04                                                                                                      [16:11:36]
+Ran 10000 simulations in 0.0826280117035 seconds
+Result is: 0.8608
+
+[csmall@rhino3] - [~/share/sekhon] - [10086]
+[$] ./sekhon.py 15 250 0 250 --tolerance 0.05
+Ran 10000 simulations in 0.0838601589203 seconds
+Result is: 0.6346
+
