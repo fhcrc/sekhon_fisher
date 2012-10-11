@@ -27,7 +27,7 @@ Sample usage:
     # Simple test of table [[a, c], [b, d]]
     sekhon.test(a, b, c, d)
 
-    # Specify 10,000,000 samples and test the probability that `P1 - P2 > prob_diff`
+    # Specifically test the probability that `P1 - P2 > prob_diff`
     sekhon.test(a, b, c, d, prob_diff=0.05)
 
 Additionally, if you are feeling playful, you can toy around with an early sampling solution using the `simulation` and `simulation_convergence_test` functions.
