@@ -7,8 +7,20 @@ import scipy
 
 __version__ = "0.0.1"
 
-def test(a, b, c, d, samples=100000, prob_diff=0.0, significance_level=0.95,
+
+def test(a, b, c, d, prob_diff=0.0):
+    """Run the Sekhom Fisher test of P1 - P2 > prob_diff"""
+
+    def f(t):
+        return (1 - beta.cdf(t+prob_diff, a+1, b+1))*beta.pdf(t, c+1, d+1)
+    return scipy.integrate.quad(f, 0, 1)[0]
+
+
+def simulation(a, b, c, d, samples=100000, prob_diff=0.0, significance_level=0.95,
         ensure_convergence=False, ensure_samples=10000000, ensure_radius=0.005):
+    """For what it's worth... Not as accurate or efficient as the integration,
+    but still fun to play with"""
+
     difference = beta.rvs(a + 1, b + 1, size=samples) - beta.rvs(c + 1, d + 1, size=samples)
     successes = (difference > prob_diff).sum()
 
@@ -20,11 +32,13 @@ def test(a, b, c, d, samples=100000, prob_diff=0.0, significance_level=0.95,
     return result
 
 
-def convergence_test(samples, trials):
+def simulation_convergence_test(samples, trials):
+    """Again, largely for fun at this point"""
+
     t0 = time.time()
     results = []
     for i in xrange(0, trials):
-        results.append(test(8, 250, 3, 250, samples))
+        results.append(simulation(8, 250, 3, 250, samples))
 
     t1 = time.time()
 
@@ -47,8 +61,7 @@ def cli():
     parser.add_argument('c', type=int, help='# sucesses in X2')
     parser.add_argument('d', type=int, help='# failures in X2')
 
-    parser.add_argument('--samples', type=int, default=10000, help='Number of samples to take')
-    parser.add_argument('--prob_diff', type=float, default=0.0, help='Test that P1 - P2 > prob_diff')
+    parser.add_argument('--prob-diff', type=float, default=0.0, help='Test that P1 - P2 > prob-diff')
 
     args = parser.parse_args()
 
@@ -56,11 +69,11 @@ def cli():
     a, b, c, d = [getattr(args, x) for x in ['a', 'b', 'c', 'd']]
 
     t0 = time.time()
-    result = test(a, b, c, d, samples=args.samples, prob_diff=args.prob_diff)
+    result = test(a, b, c, d, prob_diff=args.prob_diff)
     t1 = time.time()
 
-    print "Ran", args.samples, "simulations in", t1 - t0, "seconds"
-    print "Result is:", result
+    print "P ( P1 - P2 > prob-diff ) =", result
+    print "  Comp time:", t1 - t0, "s"
 
 
 if __name__ == '__main__':
