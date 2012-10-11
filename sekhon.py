@@ -7,20 +7,20 @@ import scipy
 
 __version__ = "0.0.1"
 
-def sekhon(a, b, c, d, samples=10000, tolerance=0.0, significance_level=0.95,
-        ensure_convergence=True, ensure_samples=1000000, ensure_radius=0.007):
+def test(a, b, c, d, samples=100000, prob_diff=0.0, significance_level=0.95,
+        ensure_convergence=False, ensure_samples=10000000, ensure_radius=0.005):
     difference = beta.rvs(a + 1, b + 1, size=samples) - beta.rvs(c + 1, d + 1, size=samples)
-    successes = (difference > tolerance).sum()
+    successes = (difference > prob_diff).sum()
 
     result = successes / samples
 
     if ensure_convergence and abs(result - significance_level) < ensure_radius:
-        result = sekhon(a, b, c, d, samples=ensure_samples, tolerance=tolerance, ensure_convergence=False)
+        result = test(a, b, c, d, samples=ensure_samples, prob_diff=prob_diff, ensure_convergence=False)
 
     return result
 
 
-def convergence_test(test, samples, trials):
+def convergence_test(samples, trials):
     t0 = time.time()
     results = []
     for i in xrange(0, trials):
@@ -37,7 +37,10 @@ def convergence_test(test, samples, trials):
 def cli():
     import argparse
     parser = argparse.ArgumentParser(description=
-            "Sekhon Fisher test for table [[a,c],[b,d]]")
+            """Sekhon Fisher test for table [[a,c],[b,d]]. See
+            "Making Inferences from 2x2 Tables: The Inadequacy of the Fisher Exact Test
+            for Observational Data and a Principled Bayesian Alternative" by
+            Jasjeet S. Sekhon, 2005""")
 
     parser.add_argument('a', type=int, help='# sucesses in X1')
     parser.add_argument('b', type=int, help='# failures in X1')
@@ -45,7 +48,7 @@ def cli():
     parser.add_argument('d', type=int, help='# failures in X2')
 
     parser.add_argument('--samples', type=int, default=10000, help='Number of samples to take')
-    parser.add_argument('--tolerance', type=float, default=0.0, help='Test that P1 - P2 > tolerance')
+    parser.add_argument('--prob_diff', type=float, default=0.0, help='Test that P1 - P2 > prob_diff')
 
     args = parser.parse_args()
 
@@ -53,7 +56,7 @@ def cli():
     a, b, c, d = [getattr(args, x) for x in ['a', 'b', 'c', 'd']]
 
     t0 = time.time()
-    result = sekhon(a, b, c, d, samples=args.samples, tolerance=args.tolerance)
+    result = test(a, b, c, d, samples=args.samples, prob_diff=args.prob_diff)
     t1 = time.time()
 
     print "Ran", args.samples, "simulations in", t1 - t0, "seconds"
@@ -61,6 +64,5 @@ def cli():
 
 
 if __name__ == '__main__':
-    print "scipy Sekhon test (100,000 samples)"
-    convergence_test(sekhon, 100000, 15)
+    cli()
 
