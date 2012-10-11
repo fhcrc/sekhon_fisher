@@ -1,36 +1,16 @@
 #!/usr/bin/env python
-
-import random
+from __future__ import division
+from scipy.stats import beta
 import time
 import scipy
 
 
 __version__ = "0.0.1"
 
-
-def sekhon2(a, b, c, d, n=10000, tolerance=0.0):
-    samples = []
-    for i in xrange(0, n):
-        samples.append((random.betavariate(a+1, b+1), 1))
-        samples.append((random.betavariate(c+1, d+1) + tolerance, 2))
-
-    samples.sort()
-    count = 0
-    total = 0
-    for sample in samples:
-        if sample[1] == 2:
-            count += 1
-        else:
-            total += count
-
-    return float(total)/n**2
-
-
 def sekhon(a, b, c, d, samples=10000, tolerance=0.0, significance_level=0.95,
         ensure_convergence=True, ensure_samples=1000000, ensure_radius=0.007):
-    successes = 0.0
-    for i in xrange(0, samples):
-        successes += random.betavariate(a + 1, b + 1) - random.betavariate(c + 1, d + 1) > tolerance
+    difference = beta.rvs(a + 1, b + 1, size=samples) - beta.rvs(c + 1, d + 1, size=samples)
+    successes = (difference > tolerance).sum()
 
     result = successes / samples
 
@@ -81,10 +61,5 @@ def cli():
 
 
 if __name__ == '__main__':
-    print "Old Sekhon test (100,000 samples)"
+    print "scipy Sekhon test (100,000 samples)"
     convergence_test(sekhon, 100000, 15)
-    #print "New Sekhon test (100 samples):"
-    #convergence_test(sekhon2, 100, 15)
-    print "New Sekhon test (100,000 samples):"
-    convergence_test(sekhon2, 100000, 15)
-
