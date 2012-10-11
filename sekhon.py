@@ -70,7 +70,7 @@ def cli():
     args = parser.parse_args()
 
 
-    a, b, c, d = [vars(args)[x] for x in ['a', 'b', 'c', 'd']]
+    a, b, c, d = [getattr(args, x) for x in ['a', 'b', 'c', 'd']]
 
     t0 = time.time()
     result = sekhon(a, b, c, d, samples=args.samples, tolerance=args.tolerance)
@@ -81,10 +81,5 @@ def cli():
 
 
 if __name__ == '__main__':
-    print "Old Sekhon test (100,000 samples)"
-    convergence_test(sekhon, 100000, 15)
-    #print "New Sekhon test (100 samples):"
-    #convergence_test(sekhon2, 100, 15)
-    print "New Sekhon test (100,000 samples):"
-    convergence_test(sekhon2, 100000, 15)
+    sekhon2(8, 250, 3, 250, 2000000)
 
