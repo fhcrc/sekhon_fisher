@@ -24,7 +24,9 @@ Sample usage:
 
     import sekhon
     
-    # Simple test of table [[a, c], [b, d]]
+    # Simple test of table
+    #      a   c
+    #      b   d
     sekhon.test(a, b, c, d)
 
     # Specifically test the probability that `P1 - P2 > prob_diff`
