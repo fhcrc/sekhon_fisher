@@ -44,3 +44,4 @@ For now Copy-Paste from `sekhon_fisher.R`. If there is enough demand, I can thro
 
 [1] Jasjeet S. Sekhon, 2005 "Making Inferences from 2×2 Tables: The Inadequacy of the Fisher Exact Test for Observational Data and a Principled Bayesian Alternative"
 
+http://polmeth.wustl.edu/media/Paper/SekhonFisherTest.pdf
