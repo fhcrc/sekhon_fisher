@@ -7,5 +7,6 @@ setup(name='sekhon',
         author="Christopher Small",
         author_email="csmall@fhcrc.org",
         scripts=['sekhon.py'],
-        py_modules=['sekhon'])
+        py_modules=['sekhon'],
+        requires=['scipy'])
 
