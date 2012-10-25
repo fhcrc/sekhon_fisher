@@ -4,7 +4,7 @@ A principled Bayesian contingency table test.
 
 ## Background
 
-Fisher's exact test is often considered the gold standard for testing the statistical significance of contingency tables in cases of small sample sizes. However, the test conditions on the marginals being fixed (such as the classic "Lady Tasting Tea", where the lady knows the number of teas in each category), and as such is not appropriate for situations where one is comparing two binomial distributions. In addition, simulations have demonstrated that in practice the test often performs poorly[1].
+Fisher's exact test is often considered the gold standard for testing the statistical significance of contingency tables in cases of small sample sizes. However, the test conditions on the marginals being fixed (such as the classic "Lady Tasting Tea", where the number of tea preparations in each category), and as such is not appropriate for situations where one is comparing two binomial distributions. In addition, simulations have demonstrated that in practice the test often performs poorly [1].
 
 Jasjeet Sekhon proposed a Bayesian alternative to Fisher's exact test which avoids these issues. This software is an implementation of his beta difference distribution solution. Primarily, this is a python module, but I have thrown in an R implementation as well.
 
@@ -43,6 +43,4 @@ For now Copy-Paste from `sekhon.R`. If there is enough demand, I can throw toget
 
 ## References
 
-[1] Jasjeet S. Sekhon, 2005 "Making Inferences from 2×2 Tables: The Inadequacy of the Fisher Exact Test for Observational Data and a Principled Bayesian Alternative"
-
-http://polmeth.wustl.edu/media/Paper/SekhonFisherTest.pdf
+[1] Jasjeet S. Sekhon, 2005 "Making Inferences from 2×2 Tables: The Inadequacy of the Fisher Exact Test for Observational Data and a Principled Bayesian Alternative." [[pdf]](http://polmeth.wustl.edu/media/Paper/SekhonFisherTest.pdf)
