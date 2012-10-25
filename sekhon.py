@@ -9,7 +9,7 @@ __version__ = "0.1.1"
 
 
 def test(a, b, c, d, prob_diff=0.0):
-    """Run the Sekhom Fisher test of P1 - P2 > prob_diff"""
+    """Run the Sekhon Fisher test of P1 - P2 > prob_diff"""
 
     def f(t):
         return (1 - beta.cdf(t+prob_diff, a+1, c+1))*beta.pdf(t, b+1, d+1)
@@ -58,7 +58,7 @@ def cli():
          succ   a    b
          fail   c    d
 
-    Evaluates probability that P1 - P2 > prob_diff.
+    Evaluates posterior probability that P1 - P2 > prob_diff.
 
     See "Making Inferences from 2x2 Tables: The Inadequacy of the Fisher Exact Test
     for Observational Data and a Principled Bayesian Alternative" by Jasjeet S. Sekhon, 2005
