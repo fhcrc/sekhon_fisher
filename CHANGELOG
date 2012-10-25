@@ -1,0 +1,19 @@
+
+# CHANGELOG
+
+
+## 0.1.1
+
+Now, argument order in sekhon.test(a, b, c, d) matches what one would most likely expect from the flattening
+of a table/matrix. So first two args are sucesses in X1, X2 respectively, and c, d are failures in the same
+respectively.
+
+Renamed R file.
+
+Removed performing output from CLI.
+
+
+
+## 0.0.1
+
+First github release -

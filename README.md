@@ -1,4 +1,4 @@
-# Sekhon Fisher Test
+# Sekhon Test
 
 A principled Bayesian contingency table test.
 
@@ -25,8 +25,9 @@ Sample usage:
     import sekhon
     
     # Simple test of table
-    #      a   c
-    #      b   d
+    #      a   b
+    #      c   d
+    # where a, b are the successes and failures in category X1, etc.
     sekhon.test(a, b, c, d)
 
     # Specifically test the probability that `P1 - P2 > prob_diff`
@@ -37,7 +38,7 @@ Additionally, if you are feeling playful, you can toy around with an early sampl
 
 ## R
 
-For now Copy-Paste from `sekhon_fisher.R`. If there is enough demand, I can throw together a little R package though.
+For now Copy-Paste from `sekhon.R`. If there is enough demand, I can throw together a little R package though.
 
 
 ## References

@@ -5,14 +5,14 @@ import time
 import scipy
 
 
-__version__ = "0.0.1"
+__version__ = "0.1.1"
 
 
 def test(a, b, c, d, prob_diff=0.0):
     """Run the Sekhom Fisher test of P1 - P2 > prob_diff"""
 
     def f(t):
-        return (1 - beta.cdf(t+prob_diff, a+1, b+1))*beta.pdf(t, c+1, d+1)
+        return (1 - beta.cdf(t+prob_diff, a+1, c+1))*beta.pdf(t, b+1, d+1)
     return scipy.integrate.quad(f, 0, 1)[0]
 
 
@@ -21,7 +21,7 @@ def simulation(a, b, c, d, samples=100000, prob_diff=0.0, significance_level=0.9
     """For what it's worth... Not as accurate or efficient as the integration,
     but still fun to play with"""
 
-    difference = beta.rvs(a + 1, b + 1, size=samples) - beta.rvs(c + 1, d + 1, size=samples)
+    difference = beta.rvs(a + 1, c + 1, size=samples) - beta.rvs(b + 1, d + 1, size=samples)
     successes = (difference > prob_diff).sum()
 
     result = successes / samples
@@ -50,15 +50,24 @@ def simulation_convergence_test(samples, trials):
 
 def cli():
     import argparse
-    parser = argparse.ArgumentParser(description=
-            """Sekhon Fisher test for table [[a,c],[b,d]]. See
-            "Making Inferences from 2x2 Tables: The Inadequacy of the Fisher Exact Test
-            for Observational Data and a Principled Bayesian Alternative" by
-            Jasjeet S. Sekhon, 2005""")
+    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
+            description="""
+    Sekhon (v {}) contingency table test for table
+
+                X1   X2
+         succ   a    b
+         fail   c    d
+
+    Evaluates probability that P1 - P2 > prob_diff.
+
+    See "Making Inferences from 2x2 Tables: The Inadequacy of the Fisher Exact Test
+    for Observational Data and a Principled Bayesian Alternative" by Jasjeet S. Sekhon, 2005
+    (http://polmeth.wustl.edu/media/Paper/SekhonFisherTest.pdf)""".format(__version__)
+            )
 
     parser.add_argument('a', type=int, help='# sucesses in X1')
-    parser.add_argument('b', type=int, help='# failures in X1')
-    parser.add_argument('c', type=int, help='# sucesses in X2')
+    parser.add_argument('b', type=int, help='# sucesses in X2')
+    parser.add_argument('c', type=int, help='# failures in X1')
     parser.add_argument('d', type=int, help='# failures in X2')
 
     parser.add_argument('--prob-diff', type=float, default=0.0, help='Test that P1 - P2 > prob-diff')
@@ -68,12 +77,9 @@ def cli():
 
     a, b, c, d = [getattr(args, x) for x in ['a', 'b', 'c', 'd']]
 
-    t0 = time.time()
     result = test(a, b, c, d, prob_diff=args.prob_diff)
-    t1 = time.time()
 
-    print "P ( P1 - P2 > prob-diff ) =", result
-    print "  Comp time:", t1 - t0, "s"
+    print "\nP ( P1 - P2 > prob-diff ) =", result, '\n'
 
 
 if __name__ == '__main__':
